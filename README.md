@@ -1,4 +1,4 @@
-# health_guard
+# Health Guard
 
 Preventive healthcare through technology.
 
