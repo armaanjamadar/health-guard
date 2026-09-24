@@ -53,7 +53,7 @@ class _HealthAnalysisScreenState extends State<HealthAnalysisScreen> {
 
     final water = _parseDecimal(_waterController.text);
     if (water == null || water <= 0) {
-      _showSnackbar('Please enter a valid water.');
+      _showSnackbar('Please enter valid water intake.');
       return;
     }
 
