@@ -14,8 +14,8 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace = "armaanjamadar.com.health_guard"
-    compileSdk = 36
-    ndkVersion = "28.2.13676358"
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -28,7 +28,7 @@ android {
         minSdk = flutter.minSdkVersion
         targetSdk = 36
         versionCode = 1
-        versionName = "1.01"
+        versionName = "1.00"
     }
 
     signingConfigs {
