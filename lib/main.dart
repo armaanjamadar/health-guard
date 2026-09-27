@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:health_guard/screens/home_screen.dart';
 import 'package:health_guard/providers/health_provider.dart';
@@ -11,15 +10,17 @@ void main() async {
 
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-  await NotificationService.initialize().timeout(Duration(seconds: 2));
-  unawaited(NotificationService.scheduleDailyHealthTip());
-
   runApp(
     ChangeNotifierProvider(
       create: (_) => HealthProvider(),
       child: const HealthGuard(),
     ),
   );
+
+  try {
+    await NotificationService.initialize();
+    await NotificationService.scheduleDailyHealthTip();
+  } catch (e) { /* Notifications not initialized */ }
 
   FlutterNativeSplash.remove();
 }
