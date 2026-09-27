@@ -149,142 +149,144 @@ class HistoryScreen extends StatelessWidget {
           ],
         ),
       )
-          : ListView.builder(
-        padding: const EdgeInsets.fromLTRB(20, 20, 20, 30),
-        itemCount: history.length,
-        itemBuilder: (context, index) {
-          final originalIndex = history.length - 1 - index;
-          final record = history[originalIndex];
+          : SafeArea(
+            child: ListView.builder(
+                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 30),
+                    itemCount: history.length,
+                    itemBuilder: (context, index) {
+            final originalIndex = history.length - 1 - index;
+            final record = history[originalIndex];
 
-          String progressStatus;
-          if (originalIndex > 0) {
-            final previousRecord = history[originalIndex - 1];
-            if (record.healthScore > previousRecord.healthScore) {
-              progressStatus = '↑ Improving';
-            } else if (record.healthScore < previousRecord.healthScore) {
-              progressStatus = '↓ Declining';
+            String progressStatus;
+            if (originalIndex > 0) {
+              final previousRecord = history[originalIndex - 1];
+              if (record.healthScore > previousRecord.healthScore) {
+                progressStatus = '↑ Improving';
+              } else if (record.healthScore < previousRecord.healthScore) {
+                progressStatus = '↓ Declining';
+              } else {
+                progressStatus = '→ Maintained';
+              }
             } else {
-              progressStatus = '→ Maintained';
+              progressStatus = '---';
             }
-          } else {
-            progressStatus = '---';
-          }
 
-          final Color statusColor =
-          progressStatus.contains('Improving')
-              ? Colors.green
-              : progressStatus.contains('Declining')
-              ? Colors.red
-              : progressStatus.contains('Maintained')
-              ? Colors.amber.shade700
-              : Colors.black;
+            final Color statusColor =
+            progressStatus.contains('Improving')
+                ? Colors.green
+                : progressStatus.contains('Declining')
+                ? Colors.red
+                : progressStatus.contains('Maintained')
+                ? Colors.amber.shade700
+                : Colors.black;
 
-          return Container(
-            margin: const EdgeInsets.only(bottom: 16),
-            padding: const EdgeInsets.all(18),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 10,
-                  offset: Offset(0, 4),
-                ),
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.calendar_today_rounded,
-                      size: 17,
-                      color: Color(0xFF1976D2),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        _formatDate(record.date),
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.grey.shade700,
-                        ),
+            return Container(
+              margin: const EdgeInsets.only(bottom: 16),
+              padding: const EdgeInsets.all(18),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 10,
+                    offset: Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.calendar_today_rounded,
+                        size: 17,
+                        color: Color(0xFF1976D2),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Health Score',
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          '${record.healthScore}/100',
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF0D47A1),
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Text(
-                          progressStatus,
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          _formatDate(record.date),
                           style: TextStyle(
                             fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: statusColor,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.grey.shade700,
                           ),
                         ),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 18),
-                const Divider(height: 1),
-                const SizedBox(height: 14),
-                _buildMetricRow(
-                  Icons.water_drop_rounded,
-                  Colors.blue,
-                  'Water',
-                  record.waterScore,
-                ),
-                const SizedBox(height: 10),
-                _buildMetricRow(
-                  Icons.bedtime_rounded,
-                  Colors.indigo,
-                  'Sleep',
-                  record.sleepScore,
-                ),
-                const SizedBox(height: 10),
-                _buildMetricRow(
-                  Icons.restaurant_rounded,
-                  Colors.orange,
-                  'Diet',
-                  record.dietScore,
-                ),
-                const SizedBox(height: 10),
-                _buildMetricRow(
-                  Icons.fitness_center_rounded,
-                  Colors.green,
-                  'Exercise',
-                  record.exerciseScore,
-                ),
-              ],
-            ),
-          );
-        },
-      ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Health Score',
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            '${record.healthScore}/100',
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF0D47A1),
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Text(
+                            progressStatus,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: statusColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 18),
+                  const Divider(height: 1),
+                  const SizedBox(height: 14),
+                  _buildMetricRow(
+                    Icons.water_drop_rounded,
+                    Colors.blue,
+                    'Water',
+                    record.waterScore,
+                  ),
+                  const SizedBox(height: 10),
+                  _buildMetricRow(
+                    Icons.bedtime_rounded,
+                    Colors.indigo,
+                    'Sleep',
+                    record.sleepScore,
+                  ),
+                  const SizedBox(height: 10),
+                  _buildMetricRow(
+                    Icons.restaurant_rounded,
+                    Colors.orange,
+                    'Diet',
+                    record.dietScore,
+                  ),
+                  const SizedBox(height: 10),
+                  _buildMetricRow(
+                    Icons.fitness_center_rounded,
+                    Colors.green,
+                    'Exercise',
+                    record.exerciseScore,
+                  ),
+                ],
+              ),
+            );
+                    },
+                  ),
+          ),
     );
   }
 

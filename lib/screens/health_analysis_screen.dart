@@ -124,164 +124,166 @@ class _HealthAnalysisScreenState extends State<HealthAnalysisScreen> {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(20, 24, 20, 30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Check Your Health',
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF0D47A1),
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              'Enter your daily habits to calculate your health score.',
-              style: TextStyle(
-                fontSize: 15,
-                color: Colors.grey.shade600,
-              ),
-            ),
-            const SizedBox(height: 26),
-            // Water
-            _buildSectionCard(
-              icon: Icons.water_drop_rounded,
-              iconColor: Colors.blue,
-              title: 'Water',
-              child: TextField(
-                controller: _waterController,
-                inputFormatters: [_decimalFormatter],
-                keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                decoration: _inputDecoration(
-                  label: 'Water (Litres)',
-                  hint: 'e.g. 2.5',
-                  icon: Icons.water_drop_outlined,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(20, 24, 20, 30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Check Your Health',
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF0D47A1),
                 ),
               ),
-            ),
-            const SizedBox(height: 16),
-            // Sleep
-            _buildSectionCard(
-              icon: Icons.bedtime_rounded,
-              iconColor: Colors.indigo,
-              title: 'Sleep',
-              child: TextField(
-                controller: _sleepController,
-                inputFormatters: [_decimalFormatter],
-                keyboardType:
-                const TextInputType.numberWithOptions(decimal: true),
-                decoration: _inputDecoration(
-                  label: 'Sleep (Hours)',
-                  hint: 'e.g. 7.5',
-                  icon: Icons.bedtime_outlined,
+              const SizedBox(height: 6),
+              Text(
+                'Enter your daily habits to calculate your health score.',
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.grey.shade600,
                 ),
               ),
-            ),
-            const SizedBox(height: 16),
-            // Diet
-            _buildSectionCard(
-              icon: Icons.restaurant_rounded,
-              iconColor: Colors.orange,
-              title: 'Diet',
-              child: DropdownButtonFormField<String>(
-                decoration: _inputDecoration(
-                  label: 'Diet Quality',
-                  icon: Icons.restaurant_outlined,
+              const SizedBox(height: 26),
+              // Water
+              _buildSectionCard(
+                icon: Icons.water_drop_rounded,
+                iconColor: Colors.blue,
+                title: 'Water',
+                child: TextField(
+                  controller: _waterController,
+                  inputFormatters: [_decimalFormatter],
+                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                  decoration: _inputDecoration(
+                    label: 'Water (Litres)',
+                    hint: 'e.g. 2.5',
+                    icon: Icons.water_drop_outlined,
+                  ),
                 ),
-                items: const [
-                  DropdownMenuItem(
-                    value: 'Very Poor',
-                    child: Text('Very Poor'),
-                  ),
-                  DropdownMenuItem(
-                    value: 'Poor',
-                    child: Text('Poor'),
-                  ),
-                  DropdownMenuItem(
-                    value: 'Average',
-                    child: Text('Average'),
-                  ),
-                  DropdownMenuItem(
-                    value: 'Good',
-                    child: Text('Good'),
-                  ),
-                  DropdownMenuItem(
-                    value: 'Excellent',
-                    child: Text('Excellent'),
-                  ),
-                ],
-                onChanged: (value) => _diet = value,
               ),
-            ),
-            const SizedBox(height: 16),
-            // Exercise
-            _buildSectionCard(
-              icon: Icons.fitness_center_rounded,
-              iconColor: Colors.green,
-              title: 'Exercise',
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _exerciseHoursController,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                        LengthLimitingTextInputFormatter(2),
-                      ],
-                      keyboardType: TextInputType.number,
-                      decoration: _inputDecoration(
-                        label: 'Hours',
-                        icon: Icons.access_time_rounded,
+              const SizedBox(height: 16),
+              // Sleep
+              _buildSectionCard(
+                icon: Icons.bedtime_rounded,
+                iconColor: Colors.indigo,
+                title: 'Sleep',
+                child: TextField(
+                  controller: _sleepController,
+                  inputFormatters: [_decimalFormatter],
+                  keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
+                  decoration: _inputDecoration(
+                    label: 'Sleep (Hours)',
+                    hint: 'e.g. 7.5',
+                    icon: Icons.bedtime_outlined,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              // Diet
+              _buildSectionCard(
+                icon: Icons.restaurant_rounded,
+                iconColor: Colors.orange,
+                title: 'Diet',
+                child: DropdownButtonFormField<String>(
+                  decoration: _inputDecoration(
+                    label: 'Diet Quality',
+                    icon: Icons.restaurant_outlined,
+                  ),
+                  items: const [
+                    DropdownMenuItem(
+                      value: 'Very Poor',
+                      child: Text('Very Poor'),
+                    ),
+                    DropdownMenuItem(
+                      value: 'Poor',
+                      child: Text('Poor'),
+                    ),
+                    DropdownMenuItem(
+                      value: 'Average',
+                      child: Text('Average'),
+                    ),
+                    DropdownMenuItem(
+                      value: 'Good',
+                      child: Text('Good'),
+                    ),
+                    DropdownMenuItem(
+                      value: 'Excellent',
+                      child: Text('Excellent'),
+                    ),
+                  ],
+                  onChanged: (value) => _diet = value,
+                ),
+              ),
+              const SizedBox(height: 16),
+              // Exercise
+              _buildSectionCard(
+                icon: Icons.fitness_center_rounded,
+                iconColor: Colors.green,
+                title: 'Exercise',
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: _exerciseHoursController,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(2),
+                        ],
+                        keyboardType: TextInputType.number,
+                        decoration: _inputDecoration(
+                          label: 'Hours',
+                          icon: Icons.access_time_rounded,
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: TextField(
-                      controller: _exerciseMinutesController,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                        LengthLimitingTextInputFormatter(2),
-                      ],
-                      keyboardType: TextInputType.number,
-                      decoration: _inputDecoration(
-                        label: 'Minutes',
-                        icon: Icons.timer_outlined,
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: TextField(
+                        controller: _exerciseMinutesController,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(2),
+                        ],
+                        keyboardType: TextInputType.number,
+                        decoration: _inputDecoration(
+                          label: 'Minutes',
+                          icon: Icons.timer_outlined,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 28),
-            // Calculate button
-            SizedBox(
-              width: double.infinity,
-              height: 56,
-              child: ElevatedButton.icon(
-                onPressed: _isSubmitting ? null : _onCalculatePressed,
-                icon: const Icon(Icons.analytics_rounded),
-                label: const Text(
-                  'Calculate Health Score',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF0D47A1),
-                  foregroundColor: Colors.white,
-                  elevation: 3,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
+                  ],
                 ),
               ),
-            ),
-          ],
+              const SizedBox(height: 28),
+              // Calculate button
+              SizedBox(
+                width: double.infinity,
+                height: 56,
+                child: ElevatedButton.icon(
+                  onPressed: _isSubmitting ? null : _onCalculatePressed,
+                  icon: const Icon(Icons.analytics_rounded),
+                  label: const Text(
+                    'Calculate Health Score',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF0D47A1),
+                    foregroundColor: Colors.white,
+                    elevation: 3,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

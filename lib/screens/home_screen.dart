@@ -54,132 +54,134 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(20, 24, 20, 30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                const Text(
-                  'Welcome to',
-                  style: TextStyle(
-                    fontSize: 17,
-                    color: Colors.black54,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                const Flexible(
-                  child: Text(
-                    'Health Guard',
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(20, 24, 20, 30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  const Text(
+                    'Welcome to',
                     style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF0D47A1),
+                      fontSize: 17,
+                      color: Colors.black54,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  const Flexible(
+                    child: Text(
+                      'Health Guard',
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF0D47A1),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Take a step towards better health today.',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey.shade600,
+                ),
+              ),
+              const SizedBox(height: 30),
+              const Text(
+                'Your Health Tools',
+                style: TextStyle(
+                  fontSize: 21,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 14),
+              _buildFeatureCard(
+                context: context,
+                icon: Icons.favorite_rounded,
+                iconColor: Colors.red,
+                title: 'Health Analysis',
+                description:
+                'Analyze your water, sleep, diet and exercise habits.',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                      const HealthAnalysisScreen(),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 14),
+              _buildFeatureCard(
+                context: context,
+                icon: Icons.monitor_weight_rounded,
+                iconColor: const Color(0xFF1976D2),
+                title: 'BMI Calculator',
+                description:
+                'Calculate your BMI and understand your result.',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                      const BmiCalculatorScreen(),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 14),
+              _buildFeatureCard(
+                context: context,
+                icon: Icons.history_rounded,
+                iconColor: Colors.green,
+                title: 'Health History',
+                description:
+                'View your previous health analysis and track your progress.',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HistoryScreen(),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 40),
+              const Text(
+                '💡 Health Tip',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Container(
+                padding: const EdgeInsets.only(left: 14),
+                decoration: const BoxDecoration(
+                  border: Border(
+                    left: BorderSide(
+                      color: Color(0xFF1976D2),
+                      width: 4,
                     ),
                   ),
                 ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Take a step towards better health today.',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey.shade600,
-              ),
-            ),
-            const SizedBox(height: 30),
-            const Text(
-              'Your Health Tools',
-              style: TextStyle(
-                fontSize: 21,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 14),
-            _buildFeatureCard(
-              context: context,
-              icon: Icons.favorite_rounded,
-              iconColor: Colors.red,
-              title: 'Health Analysis',
-              description:
-              'Analyze your water, sleep, diet and exercise habits.',
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                    const HealthAnalysisScreen(),
-                  ),
-                );
-              },
-            ),
-            const SizedBox(height: 14),
-            _buildFeatureCard(
-              context: context,
-              icon: Icons.monitor_weight_rounded,
-              iconColor: const Color(0xFF1976D2),
-              title: 'BMI Calculator',
-              description:
-              'Calculate your BMI and understand your result.',
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                    const BmiCalculatorScreen(),
-                  ),
-                );
-              },
-            ),
-            const SizedBox(height: 14),
-            _buildFeatureCard(
-              context: context,
-              icon: Icons.history_rounded,
-              iconColor: Colors.green,
-              title: 'Health History',
-              description:
-              'View your previous health analysis and track your progress.',
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const HistoryScreen(),
-                  ),
-                );
-              },
-            ),
-            const SizedBox(height: 40),
-            const Text(
-              '💡 Health Tip',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 10),
-            Container(
-              padding: const EdgeInsets.only(left: 14),
-              decoration: const BoxDecoration(
-                border: Border(
-                  left: BorderSide(
-                    color: Color(0xFF1976D2),
-                    width: 4,
+                child: Text(
+                  '"$selectedTip"',
+                  style: const TextStyle(
+                    fontSize: 17,
+                    fontStyle: FontStyle.italic,
+                    height: 1.5,
+                    color: Colors.black87,
                   ),
                 ),
               ),
-              child: Text(
-                '"$selectedTip"',
-                style: const TextStyle(
-                  fontSize: 17,
-                  fontStyle: FontStyle.italic,
-                  height: 1.5,
-                  color: Colors.black87,
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

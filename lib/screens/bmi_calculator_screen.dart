@@ -56,122 +56,124 @@ class _BmiCalculatorScreenState extends State<BmiCalculatorScreen> {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(20, 24, 20, 30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Calculate Your BMI',
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF0D47A1),
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Enter your height and weight to calculate your Body Mass Index.',
-              style: TextStyle(
-                fontSize: 15,
-                height: 1.4,
-                color: Colors.grey.shade600,
-              ),
-            ),
-            const SizedBox(height: 26),
-            // Height Card
-            _buildInputCard(
-              icon: Icons.height_rounded,
-              iconColor: Colors.blue,
-              title: 'Height',
-              child: TextField(
-                controller: heightController,
-                inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]'))],
-                keyboardType: const TextInputType.numberWithOptions(
-                  decimal: true,
-                ),
-                decoration: _inputDecoration(
-                  label: 'Height (cm)',
-                  hint: 'e.g. 170',
-                  icon: Icons.height_rounded,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(20, 24, 20, 30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Calculate Your BMI',
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF0D47A1),
                 ),
               ),
-            ),
-            const SizedBox(height: 16),
-            // Weight Card
-            _buildInputCard(
-              icon: Icons.monitor_weight_rounded,
-              iconColor: Colors.orange,
-              title: 'Weight',
-              child: TextField(
-                controller: weightController,
-                inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]'))],
-                keyboardType: const TextInputType.numberWithOptions(
-                  decimal: true,
-                ),
-                decoration: _inputDecoration(
-                  label: 'Weight (kg)',
-                  hint: 'e.g. 65',
-                  icon: Icons.monitor_weight_outlined,
+              const SizedBox(height: 8),
+              Text(
+                'Enter your height and weight to calculate your Body Mass Index.',
+                style: TextStyle(
+                  fontSize: 15,
+                  height: 1.4,
+                  color: Colors.grey.shade600,
                 ),
               ),
-            ),
-            const SizedBox(height: 28),
-            SizedBox(
-              width: double.infinity,
-              height: 56,
-              child: ElevatedButton.icon(
-                onPressed: () {
-                  final height = _parse(heightController.text.trim());
-                  final weight = _parse(weightController.text.trim());
+              const SizedBox(height: 26),
+              // Height Card
+              _buildInputCard(
+                icon: Icons.height_rounded,
+                iconColor: Colors.blue,
+                title: 'Height',
+                child: TextField(
+                  controller: heightController,
+                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]'))],
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                  ),
+                  decoration: _inputDecoration(
+                    label: 'Height (cm)',
+                    hint: 'e.g. 170',
+                    icon: Icons.height_rounded,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              // Weight Card
+              _buildInputCard(
+                icon: Icons.monitor_weight_rounded,
+                iconColor: Colors.orange,
+                title: 'Weight',
+                child: TextField(
+                  controller: weightController,
+                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]'))],
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                  ),
+                  decoration: _inputDecoration(
+                    label: 'Weight (kg)',
+                    hint: 'e.g. 65',
+                    icon: Icons.monitor_weight_outlined,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 28),
+              SizedBox(
+                width: double.infinity,
+                height: 56,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    final height = _parse(heightController.text.trim());
+                    final weight = _parse(weightController.text.trim());
 
-                  ScaffoldMessenger.of(context).clearSnackBars();
+                    ScaffoldMessenger.of(context).clearSnackBars();
 
-                  if (height == null || weight == null) {
-                    _showSnackbar('Please enter valid numbers for height and weight.');
-                    return;
-                  }
+                    if (height == null || weight == null) {
+                      _showSnackbar('Please enter valid numbers for height and weight.');
+                      return;
+                    }
 
-                  if (height < 50 || height > 250) {
-                    _showSnackbar('Please enter a valid height between 50 and 250 cm.');
-                    return;
-                  }
+                    if (height < 50 || height > 250) {
+                      _showSnackbar('Please enter a valid height between 50 and 250 cm.');
+                      return;
+                    }
 
-                  if (weight < 10 || weight > 300) {
-                    _showSnackbar('Please enter a valid weight between 10 and 300 kg.');
-                    return;
-                  }
+                    if (weight < 10 || weight > 300) {
+                      _showSnackbar('Please enter a valid weight between 10 and 300 kg.');
+                      return;
+                    }
 
-                  final healthProvider = context.read<HealthProvider>();
+                    final healthProvider = context.read<HealthProvider>();
 
-                  healthProvider.calculateBmi(height, weight);
+                    healthProvider.calculateBmi(height, weight);
 
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const BmiResultScreen(),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const BmiResultScreen(),
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.calculate_rounded),
+                  label: const Text(
+                    'Calculate BMI',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
-                  );
-                },
-                icon: const Icon(Icons.calculate_rounded),
-                label: const Text(
-                  'Calculate BMI',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
                   ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF0D47A1),
-                  foregroundColor: Colors.white,
-                  elevation: 3,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF0D47A1),
+                    foregroundColor: Colors.white,
+                    elevation: 3,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

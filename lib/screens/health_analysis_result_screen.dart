@@ -24,156 +24,158 @@ class HealthAnalysisResultScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(20, 24, 20, 30),
-        child: Column(
-          children: [
-            // Score Card
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(
-                vertical: 28,
-                horizontal: 20,
-              ),
-              decoration: BoxDecoration(
-                color: const Color(0xFF0D47A1),
-                borderRadius: BorderRadius.circular(24),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 12,
-                    offset: Offset(0, 5),
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  const Text(
-                    'Your Health Score',
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(20, 24, 20, 30),
+          child: Column(
+            children: [
+              // Score Card
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(
+                  vertical: 28,
+                  horizontal: 20,
+                ),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF0D47A1),
+                  borderRadius: BorderRadius.circular(24),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 12,
+                      offset: Offset(0, 5),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    '${healthProvider.healthScore}',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 58,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const Text(
-                    'out of 100',
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 15,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 22),
-
-            // Recommendation
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 10,
-                    offset: Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Row(
-                    children: [
-                      Icon(
-                        Icons.lightbulb_rounded,
-                        color: Colors.orange,
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    const Text(
+                      'Your Health Score',
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
                       ),
-                      SizedBox(width: 10),
-                      Text(
-                        'Your Recommendation',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 14),
-                  Text(
-                    healthProvider.recommendation,
-                    style: const TextStyle(
-                      fontSize: 15,
-                      height: 1.5,
-                      color: Colors.black87,
                     ),
-                  ),
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 28),
-
-            const Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Detailed Breakdown',
-                style: TextStyle(
-                  fontSize: 21,
-                  fontWeight: FontWeight.bold,
+                    const SizedBox(height: 10),
+                    Text(
+                      '${healthProvider.healthScore}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 58,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const Text(
+                      'out of 100',
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 15,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
 
-            const SizedBox(height: 14),
+              const SizedBox(height: 22),
 
-            _buildScoreCard(
-              icon: Icons.water_drop_rounded,
-              iconColor: Colors.blue,
-              title: 'Water',
-              score: healthProvider.waterScore,
-            ),
+              // Recommendation
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 10,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Row(
+                      children: [
+                        Icon(
+                          Icons.lightbulb_rounded,
+                          color: Colors.orange,
+                        ),
+                        SizedBox(width: 10),
+                        Text(
+                          'Your Recommendation',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 14),
+                    Text(
+                      healthProvider.recommendation,
+                      style: const TextStyle(
+                        fontSize: 15,
+                        height: 1.5,
+                        color: Colors.black87,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
 
-            const SizedBox(height: 12),
+              const SizedBox(height: 28),
 
-            _buildScoreCard(
-              icon: Icons.bedtime_rounded,
-              iconColor: Colors.indigo,
-              title: 'Sleep',
-              score: healthProvider.sleepScore,
-            ),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Detailed Breakdown',
+                  style: TextStyle(
+                    fontSize: 21,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
 
-            const SizedBox(height: 12),
+              const SizedBox(height: 14),
 
-            _buildScoreCard(
-              icon: Icons.restaurant_rounded,
-              iconColor: Colors.orange,
-              title: 'Diet',
-              score: healthProvider.dietScore,
-            ),
+              _buildScoreCard(
+                icon: Icons.water_drop_rounded,
+                iconColor: Colors.blue,
+                title: 'Water',
+                score: healthProvider.waterScore,
+              ),
 
-            const SizedBox(height: 12),
+              const SizedBox(height: 12),
 
-            _buildScoreCard(
-              icon: Icons.fitness_center_rounded,
-              iconColor: Colors.green,
-              title: 'Exercise',
-              score: healthProvider.exerciseScore,
-            ),
-          ],
+              _buildScoreCard(
+                icon: Icons.bedtime_rounded,
+                iconColor: Colors.indigo,
+                title: 'Sleep',
+                score: healthProvider.sleepScore,
+              ),
+
+              const SizedBox(height: 12),
+
+              _buildScoreCard(
+                icon: Icons.restaurant_rounded,
+                iconColor: Colors.orange,
+                title: 'Diet',
+                score: healthProvider.dietScore,
+              ),
+
+              const SizedBox(height: 12),
+
+              _buildScoreCard(
+                icon: Icons.fitness_center_rounded,
+                iconColor: Colors.green,
+                title: 'Exercise',
+                score: healthProvider.exerciseScore,
+              ),
+            ],
+          ),
         ),
       ),
     );
